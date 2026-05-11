@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAU Aurdalslia Skole</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark:   #1e3d1a;
+    --green-main:   #2d5a27;
+    --green-mid:    #3d7a34;
+    --green-light:  #5a9e4f;
+    --green-pale:   #e8f2e6;
+    --green-faint:  #f3f8f2;
+    --gold:         #c8952a;
+    --gold-light:   #f5e6c8;
+    --white:        #ffffff;
+    --off-white:    #f9faf8;
+    --text-dark:    #1a2318;
+    --text-mid:     #3a4e36;
+    --text-muted:   #6b7f66;
+    --border:       #d4e4d0;
+    --shadow-sm:    0 2px 8px rgba(30,61,26,0.08);
+    --shadow-md:    0 6px 24px rgba(30,61,26,0.12);
+    --shadow-lg:    0 16px 48px rgba(30,61,26,0.16);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    padding: 8px 0;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .topbar a { color: rgba(255,255,255,0.85); text-decoration: none; }
+  .topbar a:hover { color: #fff; }
+
+  /* ─── NAVBAR ─── */
+  .navbar {
+    background: var(--green-main);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .nav-emblem {
+    width: 44px;
+    height: 44px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green-dark);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .nav-brand-text { color: #fff; }
+  .nav-brand-text strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .nav-brand-text span {
+    display: block;
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.75;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .nav-links a.active {
+    font-weight: 500;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-main) 50%, var(--green-mid) 100%);
+    padding: 100px 2rem 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -60px;
+    width: 300px; height: 300px;
+    background: rgba(200,149,42,0.08);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,149,42,0.2);
+    border: 1px solid rgba(200,149,42,0.4);
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: #c8d8c4;
+  }
+  .hero-desc {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 500px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-dark);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(200,149,42,0.3);
+  }
+  .btn-primary:hover {
+    background: #d9a52e;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(200,149,42,0.4);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-color: rgba(255,255,255,0.5);
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .hero-stat span {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+  }
+  .hero-stat strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 80px 2rem;
+  }
+  .section-alt {
+    background: var(--green-faint);
+  }
+  .section-dark {
+    background: var(--green-dark);
+    color: #fff;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    margin-bottom: 48px;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 12px;
+  }
+  .section-dark .section-label { color: var(--gold); }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+  }
+  .section-dark .section-header h2 { color: #fff; }
+  .section-header p {
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .section-dark .section-header p { color: rgba(255,255,255,0.65); }
+
+  /* ─── ARBEIDSOMRADER ─── */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .work-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-main), var(--green-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .work-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: var(--green-light);
+  }
+  .work-card:hover::before { transform: scaleX(1); }
+  .work-icon {
+    width: 48px; height: 48px;
+    background: var(--green-pale);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+  .work-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .work-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ─── STYRET ─── */
+  .styret-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .person-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: all 0.25s;
+    box-shadow: var(--shadow-sm);
+  }
+  .person-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+  .person-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 16px rgba(45,90,39,0.25);
+  }
+  .person-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .person-role {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    background: var(--green-pale);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-top: 2px;
+  }
+
+  /* ─── UNDERUTVALG ─── */
+  .utvalg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .utvalg-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 24px 20px;
+    transition: all 0.2s;
+  }
+  .utvalg-card:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.2);
+  }
+  .utvalg-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .utvalg-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+  }
+
+  /* ─── SAMARBEIDSFLATER ─── */
+  .partner-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .partner-pill {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .partner-pill:hover {
+    border-color: var(--green-main);
+    color: var(--green-main);
+    box-shadow: var(--shadow-sm);
+  }
+  .partner-pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green-mid);
+    border-radius: 50%;
+  }
+
+  /* ─── NYHETER ─── */
+  .news-hero {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-main));
+    padding: 64px 2rem 48px;
+  }
+  .news-hero .container { display: flex; justify-content: space-between; align-items: flex-end; }
+  .news-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .news-hero p { color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300; margin-top: 8px; }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+  .news-featured {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s;
+  }
+  .news-featured:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .news-featured-img {
+    height: 220px;
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    position: relative;
+  }
+  .news-featured-img .news-tag-featured {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+  .news-featured-body { padding: 28px; }
+  .news-date-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .news-featured-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .news-featured-body p { font-size: 15px; color: var(--text-muted); font-weight: 300; line-height: 1.7; }
+
+  .news-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .news-small {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+  .news-small:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .news-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .tag-mote { background: var(--green-pale); color: var(--green-main); }
+  .tag-trafikk { background: #fef3e2; color: #9a6b1a; }
+  .tag-mai { background: #e8f0fe; color: #2856b5; }
+  .tag-okonomi { background: #fce8f3; color: #9b2a6e; }
+  .tag-info { background: var(--green-pale); color: var(--green-main); }
+  .news-small h3 { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; line-height: 1.35; }
+  .news-small p { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.55; }
+  .news-small .news-date-label { margin-bottom: 4px; margin-top: 4px; }
+
+  /* ─── REFERATER ─── */
+  .ref-hero {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-main));
+    padding: 64px 2rem 48px;
+  }
+  .ref-hero h1 { font-family: 'Playfair Display', serif; font-size: 44px; color: #fff; font-weight: 700; }
+  .ref-hero p { color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300; margin-top: 8px; }
+
+  .ref-year-block { margin-bottom: 40px; }
+  .ref-year-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--green-pale);
+  }
+  .ref-table {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .ref-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .ref-row:last-child { border-bottom: none; }
+  .ref-row:hover { background: var(--green-faint); }
+  .ref-num {
+    width: 36px; height: 36px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-main);
+  }
+  .ref-info h4 { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+  .ref-info p { font-size: 13px; color: var(--text-muted); font-weight: 300; }
+  .ref-status {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .ref-status.published { background: var(--green-pale); color: var(--green-main); }
+  .ref-status.pending { background: #fef3e2; color: #9a6b1a; }
+  .ref-dl-btn {
+    background: var(--green-main);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .ref-dl-btn:hover { background: var(--green-mid); }
+  .ref-dl-btn.disabled {
+    background: var(--border);
+    color: var(--text-muted);
+    cursor: not-allowed;
+  }
+  .ref-info-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--green-dark);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  /* ─── KONTAKT ─── */
+  .kontakt-hero {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-main));
+    padding: 64px 2rem 48px;
+  }
+  .kontakt-hero h1 { font-family: 'Playfair Display', serif; font-size: 44px; color: #fff; font-weight: 700; }
+  .kontakt-hero p { color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300; margin-top: 8px; }
+
+  .kontakt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .kontakt-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .kontakt-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .kontakt-row {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .kontakt-row:last-child { border-bottom: none; }
+  .kontakt-icon {
+    width: 36px; height: 36px;
+    background: var(--green-pale);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .kontakt-label { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+  .kontakt-val { font-size: 15px; color: var(--text-dark); }
+  .kontakt-val a { color: var(--green-main); text-decoration: none; font-weight: 500; }
+  .kontakt-val a:hover { text-decoration: underline; }
+
+  .fb-card {
+    background: linear-gradient(135deg, #1a3c5e, #2d6aa3);
+    border-radius: 16px;
+    padding: 32px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: var(--shadow-md);
+  }
+  .fb-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 6px; }
+  .fb-card p { font-size: 14px; opacity: 0.75; font-weight: 300; }
+  .fb-btn {
+    background: #fff;
+    color: #1a3c5e;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .fb-btn:hover { background: #e8f0fe; }
+
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .link-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .link-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--green-light); }
+  .link-card h4 { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+  .link-card p { font-size: 13px; color: var(--text-muted); font-weight: 300; margin-bottom: 12px; }
+  .link-card a { color: var(--green-main); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .link-card a:hover { text-decoration: underline; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.65);
+    padding: 48px 2rem 24px;
+    margin-top: 0;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+  .footer h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .footer p { font-size: 14px; line-height: 1.7; font-weight: 300; }
+  .footer ul { list-style: none; }
+  .footer ul li { margin-bottom: 8px; }
+  .footer ul a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+  .footer ul a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  /* ─── FADE-IN ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in:nth-child(1) { animation-delay: 0.05s; }
+  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.15s; }
+  .fade-in:nth-child(4) { animation-delay: 0.2s; }
+  .fade-in:nth-child(5) { animation-delay: 0.25s; }
+  .fade-in:nth-child(6) { animation-delay: 0.3s; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .styret-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr; }
+    .kontakt-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Org.nr. 917 082 014 &nbsp;|&nbsp;
+  <a href="mailto:fau.aurdalslia.skole@gmail.com">fau.aurdalslia.skole@gmail.com</a> &nbsp;|&nbsp;
+  Aurdalslia 30, 5253 Sandsli
+</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#" onclick="showPage('hjem')">
+      <div class="nav-emblem">FAU</div>
+      <div class="nav-brand-text">
+        <strong>FAU Aurdalslia Skole</strong>
+        <span>Foreldrenes Arbeidsutvalg</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active" id="nav-hjem" onclick="showPage('hjem'); return false;">Hjem</a></li>
+      <li><a href="#" id="nav-nyheter" onclick="showPage('nyheter'); return false;">Nyheter</a></li>
+      <li><a href="#" id="nav-referater" onclick="showPage('referater'); return false;">Referater</a></li>
+      <li><a href="#" id="nav-kontakt" onclick="showPage('kontakt'); return false;">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════════════ HJEM ════════════════ -->
+<div id="page-hjem" class="page active">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Foreldrenes stemme på Aurdalslia</div>
+        <h1>Sammen for <em>et bedre</em> skolemiljø</h1>
+        <p class="hero-desc">FAU er foreldrenes arbeidsutvalg på Aurdalslia Skole. Vi jobber for at alle elever skal ha et trygt, inkluderende og godt læringsmiljø – og for at foreldrestemmen skal bli hørt.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary" onclick="showPage('kontakt'); return false;">Ta kontakt</a>
+          <a href="#" class="btn-ghost" onclick="showPage('nyheter'); return false;">Siste nyheter</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Om FAU</h3>
+        <div class="hero-stat"><div class="hero-stat-dot"></div><span><strong>1 representant</strong> fra hver klasse</span></div>
+        <div class="hero-stat"><div class="hero-stat-dot"></div><span><strong>6–8 møter</strong> per skoleår</span></div>
+        <div class="hero-stat"><div class="hero-stat-dot"></div><span><strong>5 underutvalg</strong> med fokusområder</span></div>
+        <div class="hero-stat"><div class="hero-stat-dot"></div><span>Valgt av foreldregruppen</span></div>
+        <div class="hero-stat"><div class="hero-stat-dot"></div><span>Registrert i Brønnøysundregistrene</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Arbeidsområder</span>
+        <h2>Hva jobber vi med?</h2>
+        <p>FAU arbeider bredt for å påvirke skolehverdagen positivt – fra trafikksikkerhet til sosiale tiltak og samarbeid med Bergen Kommune.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card fade-in">
+          <div class="work-icon">🏫</div>
+          <h3>Skolemiljø</h3>
+          <p>Vi jobber aktivt for et trygt læringsmiljø og mot mobbing, og bidrar til planlegging av tiltak.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">🚦</div>
+          <h3>Trafikksikkerhet</h3>
+          <p>Trafikkgruppen arbeider med Hjertesonen rundt skolen for trygg skolevei.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">🤝</div>
+          <h3>Hjem–skole-samarbeid</h3>
+          <p>Vi legger til rette for et godt samarbeid mellom foreldre, lærere og ledelse.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">🎉</div>
+          <h3>Sosiale tiltak</h3>
+          <p>Vennegrupper og miljøgrupper er lavterskel tiltak som fremmer inkludering og sosialt fellesskap.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">📋</div>
+          <h3>Kvalitetsoppfølging</h3>
+          <p>FAU bidrar i arbeidet med kvalitetsoppfølging opp mot Bergen Kommune.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">🎖️</div>
+          <h3>17. mai-komiteen</h3>
+          <p>Vi bidrar aktivt inn mot planlegging og gjennomføring av nasjonaldagsfeiringen.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">🌙</div>
+          <h3>Natteravnene Rådal</h3>
+          <p>FAU deltar i Natteravnene for å skape trygge nærområder for barn og unge.</p>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-icon">💰</div>
+          <h3>Støtte og midler</h3>
+          <p>Vi deler ut støtte til skolen, lærere og elever ved ulike anledninger gjennom skoleåret.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Ledelse</span>
+        <h2>Styret 2024/2025</h2>
+        <p>Styret er valgt av FAU og er registrert i Brønnøysundregistrene.</p>
+      </div>
+      <div class="styret-grid">
+        <div class="person-card">
+          <div class="person-avatar">BF</div>
+          <h3>Bård M. Fladvad</h3>
+          <span class="person-role">Leder</span>
+        </div>
+        <div class="person-card">
+          <div class="person-avatar">TW</div>
+          <h3>Tonje Trandum Woll</h3>
+          <span class="person-role">Nestleder</span>
+        </div>
+        <div class="person-card">
+          <div class="person-avatar">ØN</div>
+          <h3>Øyvind V. Nygard</h3>
+          <span class="person-role">Økonomiansvarlig</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Organisering</span>
+        <h2>Underutvalg</h2>
+        <p>FAU er delt inn i fem underutvalg med egne fokusområder.</p>
+      </div>
+      <div class="utvalg-grid">
+        <div class="utvalg-card"><h4>Natteravnene</h4><p>Trygge nærområder, Rådal</p></div>
+        <div class="utvalg-card"><h4>Skolemiljø</h4><p>Kurs og foredrag</p></div>
+        <div class="utvalg-card"><h4>Trafikkgruppen</h4><p>Hjertesone</p></div>
+        <div class="utvalg-card"><h4>Uteplassgruppen</h4><p>Utemiljø og uteområder</p></div>
+        <div class="utvalg-card"><h4>Økonomi</h4><p>Innkjøp og midler</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Samarbeid</span>
+        <h2>Samarbeidsflater</h2>
+        <p>FAU deltar i og samarbeider med følgende råd, utvalg og grupperinger.</p>
+      </div>
+      <div class="partner-flex">
+        <div class="partner-pill">Elevrådet</div>
+        <div class="partner-pill">Samarbeidsutvalget (SU)</div>
+        <div class="partner-pill">Skolemiljøutvalget (SMU)</div>
+        <div class="partner-pill">Kommunale foreldreutvalg (KFU)</div>
+        <div class="partner-pill">Rektor og lærere</div>
+        <div class="partner-pill">Foreldregruppen</div>
+        <div class="partner-pill">Bergen Kommune</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ NYHETER ════════════════ -->
+<div id="page-nyheter" class="page">
+
+  <section class="news-hero">
+    <div class="container">
+      <div>
+        <h1>Nyheter</h1>
+        <p>Oppdateringer og informasjon fra FAU Aurdalslia Skole</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="news-grid">
+        <div class="news-featured">
+          <div class="news-featured-img">
+            📋
+            <div class="news-tag-featured">Siste nytt</div>
+          </div>
+          <div class="news-featured-body">
+            <div class="news-date-label">Mai 2025</div>
+            <h2>FAU-møte nr. 5 avholdt – referat publisert</h2>
+            <p>Årets femte FAU-møte ble avholdt 6. mai. Det ble behandlet saker knyttet til skolemiljø, oppfølging av Hjertesonen og planlegging av aktiviteter mot slutten av skoleåret. Referat er tilgjengelig under Referater.</p>
+          </div>
+        </div>
+        <div class="news-sidebar">
+          <div class="news-small">
+            <span class="news-tag tag-trafikk">Trafikk</span>
+            <div class="news-date-label">April 2025</div>
+            <h3>Hjertesone – møte med Bergen Kommune</h3>
+            <p>Trafikkgruppen har hatt møte med kommunen om forbedring av trafikksikkerheten rundt skolen.</p>
+          </div>
+          <div class="news-small">
+            <span class="news-tag tag-mai">17. mai</span>
+            <div class="news-date-label">April 2025</div>
+            <h3>FAU bidrar til årets 17. mai-feiring</h3>
+            <p>Planleggingen er i gang. Ta kontakt om du vil hjelpe til!</p>
+          </div>
+          <div class="news-small">
+            <span class="news-tag tag-okonomi">Økonomi</span>
+            <div class="news-date-label">Mars 2025</div>
+            <h3>Midler tildelt til klasser</h3>
+            <p>FAU har tildelt midler til flere klasser for sosiale tiltak og utstyr dette skoleåret.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border);">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <span class="section-label">Tidligere nyheter</span>
+          <h2 style="font-size: 26px;">2024/2025</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="news-small" style="display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;">
+            <span class="news-tag tag-mote" style="margin-bottom:0;">Møte</span>
+            <div><h3>FAU-møte nr. 4 avholdt</h3><p class="news-date-label" style="margin:2px 0 0;">Mars 2025</p></div>
+          </div>
+          <div class="news-small" style="display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;">
+            <span class="news-tag tag-info" style="margin-bottom:0;">Info</span>
+            <div><h3>Ny representant valgt i 5B</h3><p class="news-date-label" style="margin:2px 0 0;">Februar 2025</p></div>
+          </div>
+          <div class="news-small" style="display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;">
+            <span class="news-tag tag-mote" style="margin-bottom:0;">Møte</span>
+            <div><h3>FAU-møte nr. 3 avholdt</h3><p class="news-date-label" style="margin:2px 0 0;">Februar 2025</p></div>
+          </div>
+          <div class="news-small" style="display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;">
+            <span class="news-tag tag-mote" style="margin-bottom:0;">Møte</span>
+            <div><h3>Oppstartsmøte skoleåret 2024/2025</h3><p class="news-date-label" style="margin:2px 0 0;">September 2024</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ REFERATER ════════════════ -->
+<div id="page-referater" class="page">
+
+  <section class="ref-hero">
+    <div class="container">
+      <h1>Referater og protokoller</h1>
+      <p>Alle offisielle møtereferater fra FAU Aurdalslia Skole</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="ref-info-box">
+        📌 Utvalget følger standard saksbehandling: <strong>Innkalling med agenda → Møte → Protokollføring</strong>. Referater legges også ut på skolens side hos Bergen Kommune.
+      </div>
+
+      <div class="ref-year-block">
+        <div class="ref-year-label">Skoleåret 2024/2025</div>
+        <div class="ref-table">
+          <div class="ref-row">
+            <div class="ref-num">5</div>
+            <div class="ref-info"><h4>Møte nr. 5</h4><p>Avholdt 06.05.2025</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+          <div class="ref-row">
+            <div class="ref-num">4</div>
+            <div class="ref-info"><h4>Møte nr. 4</h4><p>Avholdt 11.03.2025</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+          <div class="ref-row">
+            <div class="ref-num">3</div>
+            <div class="ref-info"><h4>Møte nr. 3</h4><p>Avholdt 04.02.2025</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+          <div class="ref-row">
+            <div class="ref-num">2</div>
+            <div class="ref-info"><h4>Møte nr. 2</h4><p>Avholdt 19.11.2024</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+          <div class="ref-row">
+            <div class="ref-num">1</div>
+            <div class="ref-info"><h4>Møte nr. 1 – Oppstart</h4><p>Avholdt 10.09.2024</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-year-block">
+        <div class="ref-year-label">Skoleåret 2023/2024</div>
+        <div class="ref-table">
+          <div class="ref-row">
+            <div class="ref-num">7</div>
+            <div class="ref-info"><h4>Møte nr. 7 – Avslutning</h4><p>Avholdt mai 2024</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+          <div class="ref-row">
+            <div class="ref-num">1</div>
+            <div class="ref-info"><h4>Møte nr. 1 – Oppstart</h4><p>Avholdt september 2023</p></div>
+            <span class="ref-status published">Publisert</span>
+            <a href="#" class="ref-dl-btn">Last ned PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ KONTAKT ════════════════ -->
+<div id="page-kontakt" class="page">
+
+  <section class="kontakt-hero">
+    <div class="container">
+      <h1>Kontakt oss</h1>
+      <p>Har du spørsmål, innspill eller ønsker å engasjere deg i FAU?</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="kontakt-grid">
+        <div>
+          <div class="kontakt-card" style="margin-bottom: 24px;">
+            <h3>Kontaktinformasjon</h3>
+            <div class="kontakt-row">
+              <div class="kontakt-icon">✉️</div>
+              <div><div class="kontakt-label">E-post</div><div class="kontakt-val"><a href="mailto:fau.aurdalslia.skole@gmail.com">fau.aurdalslia.skole@gmail.com</a></div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="kontakt-icon">📍</div>
+              <div><div class="kontakt-label">Adresse</div><div class="kontakt-val">Aurdalslia 30, 5253 Sandsli</div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="kontakt-icon">🏢</div>
+              <div><div class="kontakt-label">Organisasjonsnummer</div><div class="kontakt-val">917 082 014</div></div>
+            </div>
+          </div>
+          <a href="https://www.facebook.com/fau.aurdalslia" target="_blank" class="fb-card" style="display:flex;text-decoration:none;">
+            <div>
+              <h3>Følg oss på Facebook</h3>
+              <p>FAU Aurdalslia Skole – oppdateringer, arrangementer og nyheter</p>
+            </div>
+            <div class="fb-btn">Åpne →</div>
+          </a>
+        </div>
+
+        <div>
+          <div class="kontakt-card">
+            <h3>Styret</h3>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">BF</div>
+              <div><div class="kontakt-label">Leder</div><div class="kontakt-val">Bård M. Fladvad</div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">TW</div>
+              <div><div class="kontakt-label">Nestleder</div><div class="kontakt-val">Tonje Trandum Woll</div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">ØN</div>
+              <div><div class="kontakt-label">Økonomiansvarlig</div><div class="kontakt-val">Øyvind V. Nygard</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <div class="section-header" style="margin-bottom: 20px;">
+          <span class="section-label">Ressurser</span>
+          <h2 style="font-size: 26px;">Nyttige lenker</h2>
+        </div>
+        <div class="links-grid">
+          <div class="link-card">
+            <h4>FUG</h4>
+            <p>Foreldreutvalget for grunnopplæringen – nasjonalt organ for foreldre i skolen</p>
+            <a href="https://www.fug.no" target="_blank">www.fug.no →</a>
+          </div>
+          <div class="link-card">
+            <h4>Bergen Kommune</h4>
+            <p>Skolens offisielle side og referatarkiv hos kommunen</p>
+            <a href="https://www.bergen.kommune.no" target="_blank">bergen.kommune.no →</a>
+          </div>
+          <div class="link-card">
+            <h4>Aurdalslia Skole</h4>
+            <p>Skolens hjemmeside med informasjon til elever og foresatte</p>
+            <a href="https://www.bergen.kommune.no/skoler/aurdalslia-skole" target="_blank">Gå til skolen →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h4>FAU Aurdalslia Skole</h4>
+      <p>Foreldrenes Arbeidsutvalg er foreldrenes talerør. Vi jobber for et trygt og godt læringsmiljø for alle elever ved Aurdalslia Skole i Bergen.</p>
+      <p style="margin-top: 12px;">Org.nr. 917 082 014</p>
+    </div>
+    <div>
+      <h4>Navigasjon</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('hjem'); return false;">Hjem</a></li>
+        <li><a href="#" onclick="showPage('nyheter'); return false;">Nyheter</a></li>
+        <li><a href="#" onclick="showPage('referater'); return false;">Referater</a></li>
+        <li><a href="#" onclick="showPage('kontakt'); return false;">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="mailto:fau.aurdalslia.skole@gmail.com">fau.aurdalslia.skole@gmail.com</a></li>
+        <li><a href="#">Aurdalslia 30, 5253 Sandsli</a></li>
+        <li><a href="https://www.facebook.com/fau.aurdalslia" target="_blank">Facebook-side</a></li>
+        <li><a href="https://www.fug.no" target="_blank">fug.no</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 FAU Aurdalslia Skole</span>
+    <span>Aurdalslia 30, 5253 Sandsli</span>
+  </div>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
