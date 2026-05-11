@@ -385,20 +385,55 @@
   }
 
   /* ─── STYRET ─── */
-  .styret-grid {
+.styret-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .person-card {
+    gap: 20px;
+}
+.person-card {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px 28px;
+    border-radius: 12px;
+    padding: 28px 20px;
     text-align: center;
     transition: all 0.25s;
     box-shadow: var(--shadow-sm);
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.person-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(45,90,39,0.2);
+}
+.person-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+}
+.person-role {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    background: var(--green-pale);
+    padding: 4px 14px;
+    border-radius: 20px;
+}
   .person-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-4px);
