@@ -835,13 +835,91 @@
   .fade-in:nth-child(5) { animation-delay: 0.25s; }
   .fade-in:nth-child(6) { animation-delay: 0.3s; }
 
+  /* ─── TABLET ─── */
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; }
     .hero-card { display: none; }
-    .styret-grid { grid-template-columns: 1fr; }
+    .styret-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
     .news-grid { grid-template-columns: 1fr; }
     .kontakt-grid { grid-template-columns: 1fr; }
     .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .work-grid { grid-template-columns: repeat(2, 1fr); }
+    .utvalg-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ─── MOBIL ─── */
+  @media (max-width: 600px) {
+    /* Topbar */
+    .topbar { font-size: 11px; padding: 6px 1rem; }
+
+    /* Navbar */
+    .nav-inner { padding: 0 1rem; height: 60px; }
+    .nav-brand-text strong { font-size: 14px; }
+    .nav-brand-text span { display: none; }
+    .nav-emblem { width: 36px; height: 36px; font-size: 13px; }
+    .nav-links a { font-size: 13px; padding: 6px 10px; }
+
+    /* Hero */
+    .hero { padding: 48px 1rem 40px; }
+    .hero h1 { font-size: 28px; }
+    .hero-desc { font-size: 15px; margin-bottom: 24px; }
+    .hero-eyebrow { font-size: 11px; padding: 5px 12px; }
+    .btn-primary, .btn-ghost { padding: 12px 20px; font-size: 14px; }
+
+    /* Seksjoner */
+    .section { padding: 48px 1rem; }
+    .section-header { margin-bottom: 28px; }
+    .section-header h2 { font-size: 26px; }
+    .section-header p { font-size: 15px; }
+
+    /* Arbeidsområder */
+    .work-grid { grid-template-columns: 1fr; gap: 12px; }
+    .work-card { padding: 20px; }
+
+    /* Styret */
+    .styret-grid { grid-template-columns: 1fr; gap: 12px; }
+    .person-card { padding: 24px 20px; }
+    .person-avatar { width: 56px; height: 56px; font-size: 18px; }
+    .person-card h3 { font-size: 17px; }
+
+    /* Underutvalg */
+    .utvalg-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .utvalg-card { padding: 16px 14px; }
+
+    /* Samarbeidsflater */
+    .partner-flex { gap: 8px; }
+    .partner-pill { font-size: 13px; padding: 8px 14px; }
+
+    /* Nyheter */
+    .news-hero { padding: 40px 1rem 28px; }
+    .news-hero h1 { font-size: 32px; }
+    .news-featured-img { height: 160px; font-size: 40px; }
+    .news-featured-body { padding: 20px; }
+    .news-featured-body h2 { font-size: 18px; }
+    .news-small { padding: 16px; }
+
+    /* Referater */
+    .ref-hero { padding: 40px 1rem 28px; }
+    .ref-hero h1 { font-size: 32px; }
+    .ref-row { grid-template-columns: auto 1fr; gap: 10px; padding: 14px 16px; }
+    .ref-row .ref-status { display: none; }
+    .ref-dl-btn { padding: 7px 12px; font-size: 12px; }
+    .ref-num { width: 30px; height: 30px; font-size: 12px; }
+
+    /* Kontakt */
+    .kontakt-hero { padding: 40px 1rem 28px; }
+    .kontakt-hero h1 { font-size: 32px; }
+    .kontakt-card { padding: 20px; }
+    .fb-card { flex-direction: column; gap: 16px; padding: 20px; }
+    .links-grid { grid-template-columns: 1fr; }
+
+    /* Footer */
+    .footer { padding: 32px 1rem 16px; }
+    .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+
+    /* Admin */
+    .admin-modal { margin: 0 1rem; max-height: 95vh; }
+    .admin-btn-float { width: 44px; height: 44px; font-size: 18px; bottom: 16px; right: 16px; }
   }
 </style>
 </head>
@@ -1406,7 +1484,7 @@
 <script>
   const SUPABASE_URL = 'https://krkrwfubrzyckqgdrgxr.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_fZSZVFu37fDCNUoqpg4u9g_t5jfoKSU';
-  const ADMIN_PASSWORD = 'etspesieltpassordfau!'; // Endre dette til ønsket passord
+  const ADMIN_PASSWORD = 'fau2025'; // Endre dette til ønsket passord
 
   // ─── SUPABASE HELPERS ───
   async function sbFetch(path, options = {}) {
@@ -1423,14 +1501,13 @@
     return res;
   }
 
-async function sbStorageUpload(bucket, filename, file) {
+  async function sbStorageUpload(bucket, filename, file) {
     const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${filename}`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': file.type,
-        'x-upsert': 'true'
+        'Content-Type': file.type
       },
       body: file
     });
