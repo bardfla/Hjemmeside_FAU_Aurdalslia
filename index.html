@@ -129,6 +129,45 @@
     font-weight: 500;
   }
 
+  /* ─── HAMBURGER ─── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    background: var(--green-dark);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .mobile-menu.open { max-height: 300px; padding: 8px 0 16px; }
+  .mobile-menu a {
+    display: block;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 12px 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.2s;
+  }
+  .mobile-menu a:hover, .mobile-menu a.active { background: rgba(255,255,255,0.08); color: #fff; }
+
   /* ─── PAGES ─── */
   .page { display: none; }
   .page.active { display: block; }
@@ -849,7 +888,9 @@
 
   /* ─── MOBIL ─── */
   @media (max-width: 600px) {
-    /* Topbar */
+    /* Navbar - hamburger */
+    #navLinks { display: none; }
+    .hamburger { display: flex; }
     .topbar { font-size: 11px; padding: 6px 1rem; }
 
     /* Navbar */
@@ -940,14 +981,23 @@
         <span>Foreldrenes Arbeidsutvalg</span>
       </div>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#" class="active" id="nav-hjem" onclick="showPage('hjem'); return false;">Hjem</a></li>
       <li><a href="#" id="nav-nyheter" onclick="showPage('nyheter'); return false;">Nyheter</a></li>
       <li><a href="#" id="nav-referater" onclick="showPage('referater'); return false;">Referater</a></li>
       <li><a href="#" id="nav-kontakt" onclick="showPage('kontakt'); return false;">Kontakt</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" id="mob-hjem" class="active" onclick="showPage('hjem'); toggleMenu(); return false;">Hjem</a>
+  <a href="#" id="mob-nyheter" onclick="showPage('nyheter'); toggleMenu(); return false;">Nyheter</a>
+  <a href="#" id="mob-referater" onclick="showPage('referater'); toggleMenu(); return false;">Referater</a>
+  <a href="#" id="mob-kontakt" onclick="showPage('kontakt'); toggleMenu(); return false;">Kontakt</a>
+</div>
 
 <!-- ════════════════ HJEM ════════════════ -->
 <div id="page-hjem" class="page active">
@@ -1519,11 +1569,21 @@
   }
 
   // ─── NAVIGATION ───
+  function toggleMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    hamburger.classList.toggle('open');
+    menu.classList.toggle('open');
+  }
+
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.mobile-menu a').forEach(a => a.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     document.getElementById('nav-' + id).classList.add('active');
+    const mob = document.getElementById('mob-' + id);
+    if (mob) mob.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (id === 'nyheter') loadNyheter();
     if (id === 'referater') loadReferater();
