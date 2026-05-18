@@ -1423,13 +1423,14 @@
     return res;
   }
 
-  async function sbStorageUpload(bucket, filename, file) {
+async function sbStorageUpload(bucket, filename, file) {
     const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${filename}`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': file.type
+        'Content-Type': file.type,
+        'x-upsert': 'true'
       },
       body: file
     });
