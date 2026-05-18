@@ -999,38 +999,15 @@
         <h2>Samarbeidsflater</h2>
         <p>FAU deltar i og samarbeider med følgende råd, utvalg og grupperinger.</p>
       </div>
-      <div class="work-grid">
-    <div class="work-card">
-        <div class="work-icon">🎓</div>
-        <h3>Elevrådet</h3>
-        <p>Elevrådet gir elevene en stemme i saker som handler om skolemiljø, trivsel og læring. Vi samarbeider med elevrådet for å sikre god dialog og medvirkning fra elevene.</p>
-    </div>
-    <div class="work-card">
-        <div class="work-icon">🏛️</div>
-        <h3>Samarbeidsutvalget (SU)</h3>
-        <p>SU er et rådgivende organ hvor skole, foresatte, ansatte og elever møtes for å drøfte saker som angår skolen. Vi deltar for å bidra til gode løsninger og et sterkt skole–hjem-samarbeid.</p>
-    </div>
-    <div class="work-card">
-        <div class="work-icon">🌱</div>
-        <h3>Skolemiljøutvalget (SMU)</h3>
-        <p>SMU arbeider for et trygt og godt skolemiljø for alle elever. Vi samarbeider med utvalget om tiltak og dialog som fremmer trivsel, inkludering og trygghet.</p>
-    </div>
-    <div class="work-card">
-        <div class="work-icon">🏙️</div>
-        <h3>Kommunalt Foreldreutvalg (KFU)</h3>
-        <p>KFU samler representanter fra FAU ved skolene i kommunen og jobber med saker som er viktige for foresatte og skolemiljøet. Vi samarbeider med KFU for å styrke foreldrestemmen på tvers av skolene.</p>
-    </div>
-    <div class="work-card">
-        <div class="work-icon">👩‍🏫</div>
-        <h3>Rektor og lærere</h3>
-        <p>Rektor og lærere er sentrale samarbeidspartnere i arbeidet med elevenes læring og trivsel. Vi ønsker en åpen og konstruktiv dialog som bidrar til et godt samarbeid mellom skole og hjem.</p>
-    </div>
-    <div class="work-card">
-        <div class="work-icon">👨‍👩‍👧‍👦</div>
-        <h3>Foreldregruppen</h3>
-        <p>Foreldregruppen er en viktig ressurs for fellesskapet rundt skolen og elevene. Vi legger til rette for samarbeid, engasjement og god informasjonsflyt mellom foresatte og skolen.</p>
-    </div>
-</div>
+      <div class="partner-flex">
+        <div class="partner-pill">Elevrådet</div>
+        <div class="partner-pill">Samarbeidsutvalget (SU)</div>
+        <div class="partner-pill">Skolemiljøutvalget (SMU)</div>
+        <div class="partner-pill">Kommunale foreldreutvalg (KFU)</div>
+        <div class="partner-pill">Rektor og lærere</div>
+        <div class="partner-pill">Foreldregruppen</div>
+        <div class="partner-pill">Bergen Kommune</div>
+      </div>
     </div>
   </section>
 
@@ -1387,6 +1364,11 @@
             <label>Dato</label>
             <input type="date" id="n_dato" required>
           </div>
+          <div class="form-group">
+            <label>Bilde (valgfritt)</label>
+            <input type="file" id="n_bilde" accept="image/*">
+            <span style="font-size:12px;color:var(--text-muted);margin-top:4px;">JPG, PNG eller WebP. Vises øverst i nyheten.</span>
+          </div>
           <button type="submit" class="admin-submit" id="nyheterSubmit">Publiser nyhet</button>
           <div id="nyheterMsg" class="admin-msg"></div>
         </form>
@@ -1498,7 +1480,10 @@
       const featuredWrap = document.getElementById('nyheter-featured-wrap');
       featuredWrap.innerHTML = `
         <div class="news-featured">
-          <div class="news-featured-img">📋<div class="news-tag-featured">Siste nytt</div></div>
+          <div class="news-featured-img" style="${featured.bilde_url ? `background-image:url('${featured.bilde_url}');background-size:cover;background-position:center;` : ''}">
+            ${featured.bilde_url ? '' : '📋'}
+            <div class="news-tag-featured">Siste nytt</div>
+          </div>
           <div class="news-featured-body">
             <div class="news-date-label">${formatDate(featured.dato)}</div>
             <h2>${featured.tittel}</h2>
@@ -1508,6 +1493,7 @@
         <div class="news-sidebar">
           ${data.slice(1, 4).map(n => `
             <div class="news-small">
+              ${n.bilde_url ? `<img src="${n.bilde_url}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin-bottom:10px;" alt="">` : ''}
               <span class="news-tag ${tagClass[n.kategori] || 'tag-info'}">${n.kategori || 'Info'}</span>
               <div class="news-date-label">${formatDate(n.dato)}</div>
               <h3>${n.tittel}</h3>
@@ -1633,13 +1619,25 @@
     msg.className = 'admin-msg';
 
     try {
+      // Last opp bilde hvis valgt
+      let bilde_url = null;
+      const bildefil = document.getElementById('n_bilde').files[0];
+      if (bildefil) {
+        btn.textContent = 'Laster opp bilde...';
+        const filename = `${Date.now()}_${bildefil.name.replace(/\s+/g, '_')}`;
+        const uploadRes = await sbStorageUpload('bilder', filename, bildefil);
+        if (!uploadRes.ok) throw new Error('Bildeupplasting feilet');
+        bilde_url = sbStorageUrl('bilder', filename);
+      }
+
       const res = await sbFetch('nyheter', {
         method: 'POST',
         body: JSON.stringify({
           tittel: document.getElementById('n_tittel').value,
           ingress: document.getElementById('n_ingress').value,
           kategori: document.getElementById('n_kategori').value,
-          dato: document.getElementById('n_dato').value
+          dato: document.getElementById('n_dato').value,
+          bilde_url
         })
       });
 
