@@ -429,19 +429,15 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
-.person-card {
+  .person-card {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 28px 20px;
+    padding: 36px 28px;
     text-align: center;
     transition: all 0.25s;
     box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
+  }
   .person-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-4px);
@@ -750,15 +746,13 @@
     padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
   }
-.kontakt-row {
+  .kontakt-row {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     gap: 14px;
     padding: 12px 0;
     border-bottom: 1px solid var(--border);
-    align-items: center;
-}
+    align-items: flex-start;
+  }
   .kontakt-row:last-child { border-bottom: none; }
   .kontakt-icon {
     width: 36px; height: 36px;
@@ -1238,32 +1232,21 @@
         </div>
 
         <div>
-<div>
-  <p class="section-label" style="margin-bottom:16px;">Styret</p>
-  <div style="display:flex;flex-direction:column;gap:12px;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:8px;height:8px;background:var(--green-main);border-radius:50%;flex-shrink:0;"></div>
-      <div>
-        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Leder</div>
-        <div style="font-size:15px;font-weight:500;">Bård M. Fladvad</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:8px;height:8px;background:var(--green-main);border-radius:50%;flex-shrink:0;"></div>
-      <div>
-        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Nestleder</div>
-        <div style="font-size:15px;font-weight:500;">Tonje Trandum Woll</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:8px;height:8px;background:var(--green-main);border-radius:50%;flex-shrink:0;"></div>
-      <div>
-        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Økonomiansvarlig</div>
-        <div style="font-size:15px;font-weight:500;">Øyvind V. Nygard</div>
-      </div>
-    </div>
-  </div>
-</div>
+          <div class="kontakt-card">
+            <h3>Styret</h3>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">BF</div>
+              <div><div class="kontakt-label">Leder</div><div class="kontakt-val">Bård M. Fladvad</div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">TW</div>
+              <div><div class="kontakt-label">Nestleder</div><div class="kontakt-val">Tonje Trandum Woll</div></div>
+            </div>
+            <div class="kontakt-row">
+              <div class="person-avatar" style="width:44px;height:44px;font-size:14px;flex-shrink:0;">ØN</div>
+              <div><div class="kontakt-label">Økonomiansvarlig</div><div class="kontakt-val">Øyvind V. Nygard</div></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1483,6 +1466,43 @@
         <div class="admin-tabs">
           <button class="admin-tab active" onclick="switchTab('nyhet')">➕ Ny nyhet</button>
           <button class="admin-tab" onclick="switchTab('referat')">📄 Nytt referat</button>
+          <button class="admin-tab" onclick="switchTab('rediger')">✏️ Rediger</button>
+        </div>
+
+        <!-- Rediger form -->
+        <div id="redigerForm" class="admin-form" style="display:none;">
+          <div id="rediger-liste" style="display:flex;flex-direction:column;gap:8px;"></div>
+          <div id="redigerEditForm" style="display:none;flex-direction:column;gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+            <p style="font-size:13px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.05em;">Rediger nyhet</p>
+            <input type="hidden" id="e_id">
+            <div class="form-group">
+              <label>Tittel</label>
+              <input type="text" id="e_tittel">
+            </div>
+            <div class="form-group">
+              <label>Ingress</label>
+              <textarea id="e_ingress"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Kategori</label>
+              <select id="e_kategori">
+                <option value="Møte">Møte</option>
+                <option value="Trafikk">Trafikk</option>
+                <option value="17. mai">17. mai</option>
+                <option value="Økonomi">Økonomi</option>
+                <option value="Info">Info</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dato</label>
+              <input type="date" id="e_dato">
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="admin-submit" style="flex:1;" onclick="saveRediger()">Lagre endringer</button>
+              <button onclick="slettNyhet()" style="flex:1;background:#c0392b;color:#fff;border:none;border-radius:8px;padding:12px;font-family:'Source Sans 3',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Slett nyhet</button>
+            </div>
+            <div id="redigerMsg" class="admin-msg"></div>
+          </div>
         </div>
 
         <!-- Nyhet form -->
@@ -1759,10 +1779,98 @@
 
   function switchTab(tab) {
     document.querySelectorAll('.admin-tab').forEach((t, i) => {
-      t.classList.toggle('active', (i === 0 && tab === 'nyhet') || (i === 1 && tab === 'referat'));
+      t.classList.toggle('active',
+        (i === 0 && tab === 'nyhet') ||
+        (i === 1 && tab === 'referat') ||
+        (i === 2 && tab === 'rediger')
+      );
     });
     document.getElementById('nyheterForm').classList.toggle('active', tab === 'nyhet');
     document.getElementById('referaterForm').classList.toggle('active', tab === 'referat');
+    const redigerForm = document.getElementById('redigerForm');
+    redigerForm.style.display = tab === 'rediger' ? 'flex' : 'none';
+    redigerForm.classList.toggle('active', tab === 'rediger');
+    if (tab === 'rediger') loadRedigerListe();
+  }
+
+  async function loadRedigerListe() {
+    const liste = document.getElementById('rediger-liste');
+    liste.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Laster...</p>';
+    document.getElementById('redigerEditForm').style.display = 'none';
+    try {
+      const res = await sbFetch('nyheter?order=dato.desc');
+      const data = await res.json();
+      if (!data || data.length === 0) {
+        liste.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Ingen nyheter å redigere.</p>';
+        return;
+      }
+      liste.innerHTML = data.map(n => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--off-white);border:1px solid var(--border);border-radius:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:500;">${n.tittel}</div>
+            <div style="font-size:12px;color:var(--text-muted);">${formatDate(n.dato)} · ${n.kategori || 'Info'}</div>
+          </div>
+          <button onclick="velgNyhet('${n.id}','${n.tittel.replace(/'/g,"\\'")}','${(n.ingress||'').replace(/'/g,"\\'")}','${n.kategori||'Info'}','${n.dato}')"
+            style="background:var(--green-main);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:'Source Sans 3',sans-serif;">
+            Rediger
+          </button>
+        </div>`).join('');
+    } catch(e) {
+      liste.innerHTML = '<p style="font-size:13px;color:red;">Kunne ikke laste nyheter.</p>';
+    }
+  }
+
+  function velgNyhet(id, tittel, ingress, kategori, dato) {
+    document.getElementById('e_id').value = id;
+    document.getElementById('e_tittel').value = tittel;
+    document.getElementById('e_ingress').value = ingress;
+    document.getElementById('e_kategori').value = kategori;
+    document.getElementById('e_dato').value = dato;
+    document.getElementById('redigerEditForm').style.display = 'flex';
+    document.getElementById('redigerMsg').className = 'admin-msg';
+  }
+
+  async function saveRediger() {
+    const msg = document.getElementById('redigerMsg');
+    const id = document.getElementById('e_id').value;
+    msg.className = 'admin-msg';
+    try {
+      const res = await sbFetch(`nyheter?id=eq.${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          tittel: document.getElementById('e_tittel').value,
+          ingress: document.getElementById('e_ingress').value,
+          kategori: document.getElementById('e_kategori').value,
+          dato: document.getElementById('e_dato').value
+        })
+      });
+      if (res.ok) {
+        msg.className = 'admin-msg success';
+        msg.textContent = '✓ Nyhet oppdatert!';
+        loadRedigerListe();
+      } else throw new Error();
+    } catch(e) {
+      msg.className = 'admin-msg error';
+      msg.textContent = 'Noe gikk galt. Prøv igjen.';
+    }
+  }
+
+  async function slettNyhet() {
+    if (!confirm('Er du sikker på at du vil slette denne nyheten?')) return;
+    const msg = document.getElementById('redigerMsg');
+    const id = document.getElementById('e_id').value;
+    try {
+      const res = await sbFetch(`nyheter?id=eq.${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        msg.className = 'admin-msg success';
+        msg.textContent = '✓ Nyhet slettet!';
+        document.getElementById('redigerEditForm').style.display = 'none';
+        loadRedigerListe();
+      } else throw new Error();
+    } catch(e) {
+      msg.className = 'admin-msg error';
+      msg.textContent = 'Noe gikk galt. Prøv igjen.';
+    }
   }
 
   async function submitNyhet(e) {
