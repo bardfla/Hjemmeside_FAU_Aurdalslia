@@ -750,13 +750,15 @@
     padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
   }
-  .kontakt-row {
+.kontakt-row {
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     gap: 14px;
     padding: 12px 0;
     border-bottom: 1px solid var(--border);
-    align-items: flex-start;
-  }
+    align-items: center;
+}
   .kontakt-row:last-child { border-bottom: none; }
   .kontakt-icon {
     width: 36px; height: 36px;
